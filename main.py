@@ -1,3 +1,6 @@
+import random
+
+
 class Hero:
     def __init__(self, name, health, damage):
         self.name = name
@@ -6,8 +9,9 @@ class Hero:
         self.defending = False
 
     def attack(self, target):
-        target.health = max(0, target.health - self.damage)
-        print(f"{self.name} hits {target.name} for {self.damage}")
+        damage_dealt = random.randint(self.damage - 2, self.damage + 2)
+        target.health = max(0, target.health - damage_dealt)
+        print(f"{self.name} hits {target.name} for {damage_dealt}")
         if target.health > 0:
             print(f"{target.name} has {target.health} health remaining.")
         else:
@@ -22,9 +26,10 @@ class Enemy:
         self.defending = False
 
     def attack(self, target):
-        damage_dealt = self.damage
+        damage_dealt = random.randint(self.damage - 2, self.damage + 2)
         if target.defending:
-            damage_dealt = self.damage // 2
+            print(f"{self.name} attacks {target.name} for {damage_dealt}!")
+            damage_dealt = damage_dealt // 2
             print(f"{target.name} is defending! Damage is reduced to {damage_dealt}.")
             target.defending = False
         target.health = max(0, target.health - damage_dealt)
@@ -32,6 +37,7 @@ class Enemy:
 
         if target.health > 0:
             print(f"{target.name} has {target.health} health remaining.")
+            print(f"{self.name} has {self.health} health remaining.")
         else:
             print(f"{target.name} has been defeated!")
 
@@ -40,6 +46,7 @@ def main():
     hero = Hero("Amanda", 100, 10)
     enemy = Enemy("Theodore", 80, 8)
     while True:
+        print()
         action = input("Choose an action: (1) Attack (2) Defend: ")
         if action == "1":
             hero.attack(enemy)
@@ -50,12 +57,11 @@ def main():
                 break
         elif action == "2":
             hero.defending = True
-            print(f"{hero.name} is defending!")
             enemy.attack(hero)
             if hero.health <= 0:
                 break
         else:
-            print("Invalid action. Please choose again.")
+            print("Invalid choice. Please choose again.")
 
 
 if __name__ == "__main__":
