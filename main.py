@@ -1,24 +1,7 @@
 import random
 
 
-class Hero:
-    def __init__(self, name, health, damage):
-        self.name = name
-        self.health = health
-        self.damage = damage
-        self.defending = False
-
-    def attack(self, target):
-        damage_dealt = random.randint(self.damage - 2, self.damage + 2)
-        target.health = max(0, target.health - damage_dealt)
-        print(f"{self.name} hits {target.name} for {damage_dealt}")
-        if target.health > 0:
-            print(f"{target.name} has {target.health} health remaining.")
-        else:
-            print(f"{target.name} has been defeated!")
-
-
-class Enemy:
+class Character:
     def __init__(self, name, health, damage):
         self.name = name
         self.health = health
@@ -37,14 +20,13 @@ class Enemy:
 
         if target.health > 0:
             print(f"{target.name} has {target.health} health remaining.")
-            print(f"{self.name} has {self.health} health remaining.")
         else:
             print(f"{target.name} has been defeated!")
 
 
 def main():
-    hero = Hero("Amanda", 100, 10)
-    enemy = Enemy("Theodore", 80, 8)
+    hero = Character("Amanda", 100, 10)
+    enemy = Character("Theodore", 80, 8)
     while True:
         print()
         action = input("Choose an action: (1) Attack (2) Defend: ")
