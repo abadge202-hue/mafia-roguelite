@@ -9,7 +9,7 @@ class Character:
         self.defending = False
 
     def attack(self, target):
-        damage_dealt = random.randint(self.damage - 2, self.damage + 2)
+        damage_dealt = max(1, random.randint(self.damage - 2, self.damage + 2))
         if target.defending:
             print(f"{self.name} attacks {target.name} for {damage_dealt}!")
             damage_dealt = damage_dealt // 2
@@ -22,3 +22,11 @@ class Character:
             print(f"{target.name} has {target.health} health remaining.")
         else:
             print(f"{target.name} has been defeated!")
+
+
+ENEMY_TYPES = [("Associate", 20, 2), ("Soldier", 35, 5), ("Capo", 50, 8)]
+
+
+def random_enemy():
+    name, health, damage = random.choice(ENEMY_TYPES)
+    return Character(name, health, damage)

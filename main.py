@@ -1,10 +1,10 @@
-from entities import Character
+from entities import Character, random_enemy
 from combat import fight
 
 
 def main():
     hero = Character("Amanda", 100, 10)
-    enemy = Character("Theodore", 80, 8)
+    enemy = random_enemy()
     fight(hero, enemy)
 
 

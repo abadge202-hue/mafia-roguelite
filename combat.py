@@ -1,5 +1,5 @@
 def fight(hero, enemy):
-     while True:
+    while True:
         print()
         action = input("Choose an action: (1) Attack (2) Defend: ")
         if action == "1":
