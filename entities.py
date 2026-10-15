@@ -6,7 +6,17 @@ class Character:
         self.name = name
         self.health = health
         self.damage = damage
+        self.max_health = health
         self.defending = False
+
+    def heal(self):
+        heal_amount = self.max_health // 2
+        old_health = self.health
+        self.health = min(self.max_health, self.health + heal_amount)
+        gained_health = self.health - old_health
+        print(
+            f"{self.name} heals for {gained_health}. Current health: {self.health}/{self.max_health}"
+        )
 
     def attack(self, target):
         damage_dealt = max(1, random.randint(self.damage - 2, self.damage + 2))
