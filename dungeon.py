@@ -13,8 +13,10 @@ PLACE_TYPES = [
     "a dimly lit alley",
     "the back of a shipping warehouse",
     "a shipping container",
-    "lobby of a highrise building",
+    "the lobby of a highrise building",
 ]
+
+BOSS_ROOMS = ["a luxurious penthouse"]
 
 
 def generate_floor():

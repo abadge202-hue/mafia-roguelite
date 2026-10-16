@@ -2,7 +2,7 @@ import random
 
 
 class Character:
-    def __init__(self, name, health, damage): 
+    def __init__(self, name, health, damage):
         self.name = name
         self.health = health
         self.damage = damage
@@ -14,9 +14,12 @@ class Character:
         old_health = self.health
         self.health = min(self.max_health, self.health + heal_amount)
         gained_health = self.health - old_health
-        print(
-            f"{self.name} heals for {gained_health}. Current health: {self.health}/{self.max_health}"
-        )
+        if gained_health == 0:
+            print(f"{self.name} is already at full health!")
+        else:
+            print(
+                f"{self.name} heals for {gained_health}. Current health: {self.health}/{self.max_health}"
+            )
 
     def attack(self, target):
         damage_dealt = max(1, random.randint(self.damage - 2, self.damage + 2))
@@ -34,7 +37,13 @@ class Character:
             print(f"{target.name} has been defeated!")
 
 
-ENEMY_TYPES = [("Associate", 20, 2), ("Soldier", 35, 5), ("Capo", 50, 8)]
+ENEMY_TYPES = [("Associate", 20, 2), ("Soldier", 25, 3), ("Capo", 35, 5)]
+BOSS_TYPES = [("Underboss", 75, 8)]
+
+
+def create_boss():
+    name, health, damage = BOSS_TYPES[0]
+    return Character(name, health, damage)
 
 
 def random_enemy(floor_number):
