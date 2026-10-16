@@ -11,8 +11,9 @@ def main():
         for room in rooms:
             print(f"\nYou enter {room.place}.")
             if room.room_type == "enemy":
-                enemy = random_enemy()
+                enemy = random_enemy(floor_number)
                 print(f"You encounter: {enemy.name}!")
+                print(f"{enemy.name} has {enemy.health} health and {enemy.damage} damage.")
                 fight(hero, enemy)
                 if hero.health <= 0:
                     print("You have been defeated! Game over.")

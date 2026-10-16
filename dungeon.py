@@ -12,7 +12,7 @@ PLACE_TYPES = [
     "a buzzing nightclub",
     "a dimly lit alley",
     "the back of a shipping warehouse",
-    "inside a shipping container",
+    "a shipping container",
     "lobby of a highrise building",
 ]
 

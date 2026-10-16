@@ -2,7 +2,7 @@ import random
 
 
 class Character:
-    def __init__(self, name, health, damage):
+    def __init__(self, name, health, damage): 
         self.name = name
         self.health = health
         self.damage = damage
@@ -37,6 +37,9 @@ class Character:
 ENEMY_TYPES = [("Associate", 20, 2), ("Soldier", 35, 5), ("Capo", 50, 8)]
 
 
-def random_enemy():
+def random_enemy(floor_number):
     name, health, damage = random.choice(ENEMY_TYPES)
+    floor_multiplier = 1 + (floor_number - 1) * 0.2
+    health = round(health * floor_multiplier)
+    damage = round(damage * floor_multiplier)
     return Character(name, health, damage)
