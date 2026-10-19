@@ -26,20 +26,21 @@ class Character:
     def pick_up(self, item):
         if item.item_type == "potion":
             self.inventory.append(item)
-            print(f"{self.name} picked up a {item.name}!")
+            print(f"{self.name} picked up {item.name}!")
         elif item.item_type == "weapon":
             self.damage += item.value
             print(
-                f"{self.name} picked up a {item.name}! Damage increased by {item.value}."
+                f"{self.name} picked up {item.name}! Damage increased by {item.value}."
             )
         elif item.item_type == "armor":
             self.defense += item.value
             print(
-                f"{self.name} picked up a {item.name}! Defense increased by {item.value}."
+                f"{self.name} picked up {item.name}! Defense increased by {item.value}."
             )
 
     def attack(self, target):
         damage_dealt = max(1, random.randint(self.damage - 2, self.damage + 2))
+        damage_dealt = max(1, damage_dealt - target.defense)
         if target.defending:
             print(f"{self.name} attacks {target.name} for {damage_dealt}!")
             damage_dealt = damage_dealt // 2

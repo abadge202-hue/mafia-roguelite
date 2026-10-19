@@ -10,8 +10,8 @@ class Item:
 
 ITEM_TYPES = [
     ("Brass knuckles", "weapon", 3),
-    ("Overcoat", "armor", 2),
-    ("painkillers", "potion", 30),
+    ("an Overcoat", "armor", 2),
+    ("Painkillers", "potion", 30),
 ]
 
 

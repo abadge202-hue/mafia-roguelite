@@ -1,6 +1,7 @@
 from entities import Character, create_boss, random_enemy
 from combat import fight
 from dungeon import BOSS_ROOMS, generate_floor
+from items import random_item
 
 
 def main():
@@ -22,7 +23,9 @@ def main():
                     print("You have been defeated! Game over.")
                     return
             elif room.room_type == "treasure":
-                print("You find a black book!")
+                item = random_item()
+                hero.pick_up(item)
+
             elif room.room_type == "rest":
                 print("You find a safe place to rest.")
                 hero.heal()
@@ -41,8 +44,7 @@ def main():
     if hero.health <= 0:
         print(f"\nYou have been defeated by {boss.name}! Game over.")
         return
-    print(f"\nCongratulations! You have defeated {boss.name} and completed the game!") 
-    
+    print(f"\nCongratulations! You have defeated {boss.name} and completed the game!")
 
 
 if __name__ == "__main__":
