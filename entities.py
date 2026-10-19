@@ -8,6 +8,8 @@ class Character:
         self.damage = damage
         self.max_health = health
         self.defending = False
+        self.defense = 0
+        self.inventory = []
 
     def heal(self):
         heal_amount = self.max_health // 2
@@ -19,6 +21,21 @@ class Character:
         else:
             print(
                 f"{self.name} heals for {gained_health}. Current health: {self.health}/{self.max_health}"
+            )
+
+    def pick_up(self, item):
+        if item.item_type == "potion":
+            self.inventory.append(item)
+            print(f"{self.name} picked up a {item.name}!")
+        elif item.item_type == "weapon":
+            self.damage += item.value
+            print(
+                f"{self.name} picked up a {item.name}! Damage increased by {item.value}."
+            )
+        elif item.item_type == "armor":
+            self.defense += item.value
+            print(
+                f"{self.name} picked up a {item.name}! Defense increased by {item.value}."
             )
 
     def attack(self, target):
