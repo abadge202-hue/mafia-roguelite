@@ -12,6 +12,8 @@
 - Seeded runs to share with friends
 - Endless mode, with the floor reached as the score
 - More weapons and armor tiers (switchblade, leather jacket, padded vest)
-
+- Shop Room (potions, armor, weapons)
+- Enemy Drops (Money for shop room, better weapon's/armor)
 ## Cleanup
 - heal() takes an amount so painkillers can reuse it
+- attack() returns damage and blocked instead of printing (keep armor defense); combat.py handles messages (prep for graphics)
