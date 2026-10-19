@@ -1,7 +1,7 @@
 def fight(hero, enemy):
     while True:
         print()
-        print(f"inventory: {[item.name for item in hero.inventory]}")
+
         action = input("Choose an action: (1) Attack (2) Defend (3) Use Painkillers: ")
         if action == "1":
             hero.attack(enemy)

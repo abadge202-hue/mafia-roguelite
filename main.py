@@ -1,6 +1,6 @@
-from entities import Character, create_boss, random_enemy
 from combat import fight
 from dungeon import BOSS_ROOMS, generate_floor
+from entities import Character, create_boss, random_enemy
 from items import random_item
 
 
