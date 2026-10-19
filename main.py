@@ -10,6 +10,7 @@ def main():
         print(f"\n--- Floor {floor_number} ---")
         rooms = generate_floor()
         for room in rooms:
+
             print(f"\nYou enter {room.place}.")
             if room.room_type == "enemy":
                 enemy = random_enemy(floor_number)

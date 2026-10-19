@@ -1,0 +1,17 @@
+# Ideas
+
+## Balance
+- Weight room types so empty rooms are rarer (random.choices with weights)
+- Items stack: decide whether a new weapon replaces the old one
+- Check the Underboss is beatable after three floors
+
+## Features
+- Status line at each room: HP, damage, defense, painkillers
+- Show when armor absorbs damage
+- Don't let painkillers be used at full health
+- Seeded runs to share with friends
+- Endless mode, with the floor reached as the score
+- More weapons and armor tiers (switchblade, leather jacket, padded vest)
+
+## Cleanup
+- heal() takes an amount so painkillers can reuse it

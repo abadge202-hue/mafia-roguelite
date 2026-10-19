@@ -23,6 +23,30 @@ class Character:
                 f"{self.name} heals for {gained_health}. Current health: {self.health}/{self.max_health}"
             )
 
+    def use_painkillers(self):
+        for item in self.inventory:
+            if self.health == self.max_health:
+                print(f"{self.name} is already at full health!")
+                return False
+            if item.item_type == "potion" and item.name == "Painkillers":
+                heal_amount = item.value
+                old_health = self.health
+                self.health = min(self.max_health, self.health + heal_amount)
+                gained_health = self.health - old_health
+                self.inventory.remove(item)
+                if self.health == self.max_health:
+                    print(f"{self.name} is already at full health!")
+                    return False
+                print(
+                    f"{self.name} uses {item.name} and heals for {gained_health}. Current health: {self.health}/{self.max_health}"
+                )
+                return True
+            if self.health == self.max_health:
+                print(f"{self.name} is already at full health!")
+                return False
+        print(f"{self.name} has no Painkillers to use!")
+        return False
+
     def pick_up(self, item):
         if item.item_type == "potion":
             self.inventory.append(item)
