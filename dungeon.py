@@ -8,6 +8,7 @@ class Room:
 
 
 ROOM_TYPES = ["enemy", "treasure", "empty", "rest"]
+ROOM_WEIGHTS = [50, 15, 15, 20]
 PLACE_TYPES = [
     "a buzzing nightclub",
     "a dimly lit alley",
@@ -22,6 +23,9 @@ BOSS_ROOMS = ["a luxurious penthouse"]
 def generate_floor():
     count = random.randint(5, 8)
     return [
-        Room(random.choice(ROOM_TYPES), random.choice(PLACE_TYPES))
+        Room(
+            random.choices(ROOM_TYPES, weights=ROOM_WEIGHTS)[0],
+            random.choice(PLACE_TYPES),
+        )
         for _ in range(count)
     ]
