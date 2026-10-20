@@ -4,9 +4,11 @@ from entities import Character, create_boss, random_enemy
 from items import random_item
 
 
-def main():
+def play_run():
+    stats = {"Floors": 1, "Enemies Defeated": 0, "Items Found": 0, "Won": False}
     hero = Character("Amanda", 100, 10)
     for floor_number in range(1, 4):
+        stats["Floors"] = floor_number
         print(f"\n--- Floor {floor_number} ---")
         rooms = generate_floor()
         for room in rooms:
@@ -22,10 +24,12 @@ def main():
                 fight(hero, enemy)
                 if hero.health <= 0:
                     print("You have been defeated! Game over.")
-                    return
+                    return stats
+                stats["Enemies Defeated"] += 1
             elif room.room_type == "treasure":
                 item = random_item()
                 hero.pick_up(item)
+                stats["Items Found"] += 1
 
             elif room.room_type == "rest":
                 print("You find a safe place to rest.")
@@ -44,8 +48,29 @@ def main():
     fight(hero, boss)
     if hero.health <= 0:
         print(f"\nYou have been defeated by {boss.name}! Game over.")
-        return
-    print(f"\nCongratulations! You have defeated {boss.name} and completed the game!")
+        return stats
+    stats["Enemies Defeated"] += 1
+    stats["Won"] = True
+    return stats
+
+
+def show_summary(stats):
+    if stats["Won"]:
+        print("\n--- Game Summary ---")
+        print(f"Floor Reached: {stats['Floors']}")
+        print(f"Enemies Defeated: {stats['Enemies Defeated']}")
+        print(f"Items Found: {stats['Items Found']}")
+    else:
+        print("You have been defeated!")
+        print("\n--- Game Summary ---")
+        print(f"Floor Reached: {stats['Floors']}")
+        print(f"Enemies Defeated: {stats['Enemies Defeated']}")
+        print(f"Items Found: {stats['Items Found']}")
+
+
+def main():
+    stats = play_run()
+    show_summary(stats)
 
 
 if __name__ == "__main__":
