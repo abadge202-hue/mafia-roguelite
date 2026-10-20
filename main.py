@@ -23,7 +23,6 @@ def play_run():
                 print(f"{hero.name} has {hero.health} health")
                 fight(hero, enemy)
                 if hero.health <= 0:
-                    print("You have been defeated! Game over.")
                     return stats
                 stats["Enemies Defeated"] += 1
             elif room.room_type == "treasure":
@@ -61,7 +60,6 @@ def show_summary(stats):
         print(f"Enemies Defeated: {stats['Enemies Defeated']}")
         print(f"Items Found: {stats['Items Found']}")
     else:
-        print("You have been defeated!")
         print("\n--- Game Summary ---")
         print(f"Floor Reached: {stats['Floors']}")
         print(f"Enemies Defeated: {stats['Enemies Defeated']}")
@@ -69,8 +67,19 @@ def show_summary(stats):
 
 
 def main():
-    stats = play_run()
-    show_summary(stats)
+    while True:
+        print("\nThe Syndicate Loop!")
+        print("1. Start a new game")
+        print("2. Exit")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            stats = play_run()
+            show_summary(stats)
+        elif choice == "2":
+            print("Thank you for playing! Goodbye.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 
 if __name__ == "__main__":
