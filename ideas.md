@@ -15,6 +15,7 @@
 - Shop Room (potions, armor, weapons)
 - Enemy Drops (Money for shop room, better weapon's/armor)
 - Add Bosses Defeated in stats
+- Add Menu best-run display
 ## Cleanup
 - heal() takes an amount so painkillers can reuse it
 - attack() returns damage and blocked instead of printing (keep armor defense); combat.py handles messages (prep for graphics)

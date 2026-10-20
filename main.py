@@ -2,6 +2,7 @@ from combat import fight
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
+import json
 
 
 def play_run():
@@ -66,15 +67,41 @@ def show_summary(stats):
         print(f"Items Found: {stats['Items Found']}")
 
 
+def load_best_run():
+    try:
+        with open("best_run.json", "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None
+
+
+def save_best_run(stats):
+    with open("best_run.json", "w") as f:
+        json.dump(stats, f)
+
+
+def run_score(run):
+    return (run["Won"], run["Floors"], run["Enemies Defeated"])
+
+
 def main():
     while True:
-        print("\nThe Syndicate Loop!")
+        print("\nThe Syndicate Loop!")       
         print("1. Start a new game")
         print("2. Exit")
         choice = input("Enter your choice: ")
         if choice == "1":
             stats = play_run()
             show_summary(stats)
+            best = load_best_run()
+            if best is None or run_score(stats) > run_score(best):
+                save_best_run(stats)
+                print("New best run!")
+            else:
+                print(
+                    f"Best run: Reached floor {best['Floors']} and defeated "
+                    f"{best['Enemies Defeated']} enemies."
+                )
         elif choice == "2":
             print("Thank you for playing! Goodbye.")
             break
