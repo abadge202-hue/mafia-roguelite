@@ -1,7 +1,6 @@
 # Ideas
 
 ## Balance
-- Weight room types so empty rooms are rarer (random.choices with weights)
 - Items stack: decide whether a new weapon replaces the old one
 - Check the Underboss is beatable after three floors
 - Make blocking meaningful (Counter-attack, "Grudge meter")
@@ -18,6 +17,7 @@
 - Add Bosses Defeated in stats
 - Add Menu best-run display
 - Crit damage for characters
+- Boss intros? (most likely)
 ## Cleanup
 - heal() takes an amount so painkillers can reuse it
 - attack() returns damage and blocked instead of printing (keep armor defense); combat.py handles messages (prep for graphics)

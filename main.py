@@ -30,16 +30,16 @@ def play_run():
                 hero.heal()
             else:
                 print("The room is empty. Nothing happens.")
+        boss = create_boss(floor_number)
+        print(
+                f"\n{hero.name} heads to {BOSS_ROOMS[floor_number -1]} to face the {boss.name}!"
+            )
+        print(f"\nYou arrive at {BOSS_ROOMS[floor_number - 1]}.")
+        if not run_encounter(hero, boss):
+                return stats
+        stats["Enemies Defeated"] += 1
         print("You have cleared the floor! Congratulations!")
-    boss = create_boss()
-    print(
-        f"\n{hero.name} is taking the elevator to {BOSS_ROOMS[0]} to face the {boss.name}!"
-    )
-    hero.heal()
-    print(f"\nYou enter {BOSS_ROOMS[0]}.")
-    if not run_encounter(hero, boss):
-        return stats
-    stats["Enemies Defeated"] += 1
+
     stats["Won"] = True
     return stats
 
