@@ -1,5 +1,6 @@
-from config import ITEM_TYPES
 import random
+
+from config import ITEM_TYPES
 
 
 class Item:

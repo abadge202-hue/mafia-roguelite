@@ -1,5 +1,6 @@
-from config import ROOM_TYPES, ROOM_WEIGHTS, MIN_ROOMS, MAX_ROOMS
 import random
+
+from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, ROOM_WEIGHTS
 
 
 class Room:

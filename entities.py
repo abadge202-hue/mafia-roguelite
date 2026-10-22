@@ -1,12 +1,13 @@
-from config import (
-    ENEMY_TYPES,
-    BOSS_TYPES,
-    FLOOR_SCALING,
-    DAMAGE_SPREAD,
-    REST_HEAL_FRACTION,
-    BLOCK_FRACTION,
-)
 import random
+
+from config import (
+    BLOCK_FRACTION,
+    BOSS_TYPES,
+    DAMAGE_SPREAD,
+    ENEMY_TYPES,
+    FLOOR_SCALING,
+    REST_HEAL_FRACTION,
+)
 
 
 class Character:

@@ -1,9 +1,10 @@
+import json
+
 from combat import run_encounter
 from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME, NUM_FLOORS
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
-import json
 
 
 def play_run():
