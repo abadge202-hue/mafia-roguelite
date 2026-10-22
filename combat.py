@@ -26,3 +26,14 @@ def fight(hero, enemy):
                     break
         else:
             print("Invalid choice. Please choose again.")
+
+
+def run_encounter(hero, enemy):
+    print(f"You encounter: {enemy.name}!")
+    print(f"{enemy.name} has {enemy.health} health and {enemy.damage} damage.")
+    fight(hero, enemy)
+    if hero.health <= 0:
+        print(f"{hero.name} was defeated by {enemy.name}.")
+    else:
+        print(f"{hero.name} defeated {enemy.name}")
+    return hero.health > 0

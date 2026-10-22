@@ -75,8 +75,6 @@ class Character:
 
         if target.health > 0:
             print(f"{target.name} has {target.health} health remaining.")
-        else:
-            print(f"{target.name} has been defeated!")
 
 
 ENEMY_TYPES = [("Associate", 20, 2), ("Soldier", 25, 3), ("Capo", 35, 5)]

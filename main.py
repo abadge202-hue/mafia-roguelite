@@ -1,4 +1,4 @@
-from combat import fight
+from combat import run_encounter
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
@@ -17,13 +17,7 @@ def play_run():
             print(f"\nYou enter {room.place}.")
             if room.room_type == "enemy":
                 enemy = random_enemy(floor_number)
-                print(f"You encounter: {enemy.name}!")
-                print(
-                    f"{enemy.name} has {enemy.health} health and {enemy.damage} damage."
-                )
-                print(f"{hero.name} has {hero.health} health")
-                fight(hero, enemy)
-                if hero.health <= 0:
+                if not run_encounter(hero, enemy):
                     return stats
                 stats["Enemies Defeated"] += 1
             elif room.room_type == "treasure":
@@ -43,11 +37,7 @@ def play_run():
     )
     hero.heal()
     print(f"\nYou enter {BOSS_ROOMS[0]}.")
-    print(f"\nYou encounter the first boss: {boss.name}!")
-    print(f"{boss.name} has {boss.health} health and {boss.damage} damage.")
-    fight(hero, boss)
-    if hero.health <= 0:
-        print(f"\nYou have been defeated by {boss.name}! Game over.")
+    if not run_encounter(hero, boss):
         return stats
     stats["Enemies Defeated"] += 1
     stats["Won"] = True
@@ -86,7 +76,7 @@ def run_score(run):
 
 def main():
     while True:
-        print("\nThe Syndicate Loop!")       
+        print("\nThe Syndicate Loop!")
         print("1. Start a new game")
         print("2. Exit")
         choice = input("Enter your choice: ")
