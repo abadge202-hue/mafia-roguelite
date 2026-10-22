@@ -8,7 +8,6 @@
 ## Features
 - Status line at each room: HP, damage, defense, painkillers
 - Show when armor absorbs damage
-- Don't let painkillers be used at full health
 - Seeded runs to share with friends
 - Endless mode, with the floor reached as the score
 - More weapons and armor tiers (switchblade, leather jacket, padded vest)
