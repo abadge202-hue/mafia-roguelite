@@ -1,3 +1,4 @@
+from config import ITEM_TYPES
 import random
 
 
@@ -8,11 +9,7 @@ class Item:
         self.value = value
 
 
-ITEM_TYPES = [
-    ("Brass knuckles", "weapon", 3),
-    ("an Overcoat", "armor", 2),
-    ("Painkillers", "potion", 30),
-]
+
 
 
 def random_item():
