@@ -8,3 +8,7 @@ ITEM_TYPES = [
     ("an Overcoat", "armor", 2),
     ("Painkillers", "potion", 30),
 ]
+ROOM_TYPES = ["enemy", "treasure", "empty", "rest"]
+ROOM_WEIGHTS = [50, 15, 15, 20]
+MIN_ROOMS = 5
+MAX_ROOMS = 8

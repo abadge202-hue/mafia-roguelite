@@ -1,3 +1,4 @@
+from config import ROOM_TYPES, ROOM_WEIGHTS, MIN_ROOMS, MAX_ROOMS
 import random
 
 
@@ -7,8 +8,7 @@ class Room:
         self.place = place
 
 
-ROOM_TYPES = ["enemy", "treasure", "empty", "rest"]
-ROOM_WEIGHTS = [50, 15, 15, 20]
+
 PLACE_TYPES = [
     "a buzzing nightclub",
     "a dimly lit alley",
@@ -25,7 +25,7 @@ BOSS_ROOMS = [
 
 
 def generate_floor():
-    count = random.randint(5, 8)
+    count = random.randint(MIN_ROOMS, MAX_ROOMS)
     return [
         Room(
             random.choices(ROOM_TYPES, weights=ROOM_WEIGHTS)[0],
