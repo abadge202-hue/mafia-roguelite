@@ -1,5 +1,5 @@
 from combat import run_encounter
-from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME
+from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME, NUM_FLOORS
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
@@ -9,7 +9,7 @@ import json
 def play_run():
     stats = {"Floors": 1, "Enemies Defeated": 0, "Items Found": 0, "Won": False}
     hero = Character(HERO_NAME, HERO_HEALTH, HERO_DAMAGE)
-    for floor_number in range(1, 4):
+    for floor_number in range(1, NUM_FLOORS + 1):
         stats["Floors"] = floor_number
         print(f"\n--- Floor {floor_number} ---")
         rooms = generate_floor()
@@ -33,11 +33,11 @@ def play_run():
                 print("The room is empty. Nothing happens.")
         boss = create_boss(floor_number)
         print(
-                f"\n{hero.name} heads to {BOSS_ROOMS[floor_number -1]} to face the {boss.name}!"
-            )
+            f"\n{hero.name} heads to {BOSS_ROOMS[floor_number -1]} to face the {boss.name}!"
+        )
         print(f"\nYou arrive at {BOSS_ROOMS[floor_number - 1]}.")
         if not run_encounter(hero, boss):
-                return stats
+            return stats
         stats["Enemies Defeated"] += 1
         print("You have cleared the floor! Congratulations!")
 

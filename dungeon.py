@@ -8,7 +8,6 @@ class Room:
         self.place = place
 
 
-
 PLACE_TYPES = [
     "a buzzing nightclub",
     "a dimly lit alley",

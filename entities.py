@@ -1,4 +1,11 @@
-from config import ENEMY_TYPES, BOSS_TYPES
+from config import (
+    ENEMY_TYPES,
+    BOSS_TYPES,
+    FLOOR_SCALING,
+    DAMAGE_SPREAD,
+    REST_HEAL_FRACTION,
+    BLOCK_FRACTION,
+)
 import random
 
 
@@ -13,7 +20,7 @@ class Character:
         self.inventory = []
 
     def heal(self):
-        heal_amount = self.max_health // 2
+        heal_amount = int(self.max_health * REST_HEAL_FRACTION)
         old_health = self.health
         self.health = min(self.max_health, self.health + heal_amount)
         gained_health = self.health - old_health
@@ -64,11 +71,13 @@ class Character:
             )
 
     def attack(self, target):
-        damage_dealt = max(1, random.randint(self.damage - 2, self.damage + 2))
+        damage_dealt = max(
+            1, random.randint(self.damage - DAMAGE_SPREAD, self.damage + DAMAGE_SPREAD)
+        )
         damage_dealt = max(1, damage_dealt - target.defense)
         if target.defending:
             print(f"{self.name} attacks {target.name} for {damage_dealt}!")
-            damage_dealt = damage_dealt // 2
+            damage_dealt = int(damage_dealt * BLOCK_FRACTION)
             print(f"{target.name} is defending! Damage is reduced to {damage_dealt}.")
             target.defending = False
         target.health = max(0, target.health - damage_dealt)
@@ -78,8 +87,6 @@ class Character:
             print(f"{target.name} has {target.health} health remaining.")
 
 
-
-
 def create_boss(floor_number):
     name, health, damage = BOSS_TYPES[floor_number - 1]
     return Character(name, health, damage)
@@ -87,7 +94,7 @@ def create_boss(floor_number):
 
 def random_enemy(floor_number):
     name, health, damage = random.choice(ENEMY_TYPES)
-    floor_multiplier = 1 + (floor_number - 1) * 0.2
+    floor_multiplier = 1 + (floor_number - 1) * FLOOR_SCALING
     health = round(health * floor_multiplier)
     damage = round(damage * floor_multiplier)
     return Character(name, health, damage)
