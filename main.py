@@ -1,4 +1,5 @@
 from combat import run_encounter
+from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
@@ -7,7 +8,7 @@ import json
 
 def play_run():
     stats = {"Floors": 1, "Enemies Defeated": 0, "Items Found": 0, "Won": False}
-    hero = Character("Amanda", 100, 10)
+    hero = Character(HERO_NAME, HERO_HEALTH, HERO_DAMAGE)
     for floor_number in range(1, 4):
         stats["Floors"] = floor_number
         print(f"\n--- Floor {floor_number} ---")
