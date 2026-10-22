@@ -1,3 +1,4 @@
+from config import ENEMY_TYPES, BOSS_TYPES
 import random
 
 
@@ -77,8 +78,6 @@ class Character:
             print(f"{target.name} has {target.health} health remaining.")
 
 
-ENEMY_TYPES = [("Associate", 20, 2), ("Soldier", 25, 3), ("Capo", 35, 5)]
-BOSS_TYPES = [("Enforcer", 45, 6), ("Consigliere", 60, 8), ("Underboss", 75, 10)]
 
 
 def create_boss(floor_number):
