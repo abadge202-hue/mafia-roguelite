@@ -3,7 +3,7 @@ def fight(hero, enemy):
         print()
 
         action = input(
-            f"{hero.name} {hero.health}/{hero.max_health}|{enemy.name} {enemy.health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: "
+            f"{hero.name} {hero.health}/{hero.max_health} | {enemy.name} {enemy.health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: "
         )
         if action == "1":
             hero.attack(enemy)
@@ -34,5 +34,5 @@ def run_encounter(hero, enemy):
     if hero.health <= 0:
         print(f"{hero.name} was defeated by {enemy.name}.")
     else:
-        print(f"{hero.name} defeated {enemy.name}")
+        print(f"{hero.name} defeated {enemy.name}!")
     return hero.health > 0
