@@ -53,16 +53,13 @@ def play_run():
 
 
 def show_summary(stats):
-    if stats["Won"]:
         print("\n--- Game Summary ---")
+        result = "Won" if stats["Won"] else "Lost"
+        print(f"Results: {result}")
         print(f"Floor Reached: {stats['Floors']}")
         print(f"Enemies Defeated: {stats['Enemies Defeated']}")
         print(f"Items Found: {stats['Items Found']}")
-    else:
-        print("\n--- Game Summary ---")
-        print(f"Floor Reached: {stats['Floors']}")
-        print(f"Enemies Defeated: {stats['Enemies Defeated']}")
-        print(f"Items Found: {stats['Items Found']}")
+   
 
 
 def load_best_run():
