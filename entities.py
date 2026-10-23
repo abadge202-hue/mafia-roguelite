@@ -6,7 +6,6 @@ from config import (
     DAMAGE_SPREAD,
     ENEMY_TYPES,
     FLOOR_SCALING,
-    REST_HEAL_FRACTION,
 )
 
 
@@ -20,17 +19,11 @@ class Character:
         self.defense = 0
         self.inventory = []
 
-    def heal(self):
-        heal_amount = int(self.max_health * REST_HEAL_FRACTION)
+    def heal(self, amount):
         old_health = self.health
-        self.health = min(self.max_health, self.health + heal_amount)
+        self.health = min(self.max_health, self.health + amount)
         gained_health = self.health - old_health
-        if gained_health == 0:
-            print(f"{self.name} is already at full health!")
-        else:
-            print(
-                f"{self.name} heals for {gained_health}. Current health: {self.health}/{self.max_health}"
-            )
+        return gained_health
 
     def use_painkillers(self):
         for item in self.inventory:

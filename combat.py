@@ -2,7 +2,9 @@ def fight(hero, enemy):
     while True:
         print()
 
-        action = input(f"{hero.name} {hero.health}/{hero.max_health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: ")
+        action = input(
+            f"{hero.name} {hero.health}/{hero.max_health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: "
+        )
         if action == "1":
             hero.attack(enemy)
             if enemy.health <= 0:
@@ -19,7 +21,6 @@ def fight(hero, enemy):
             if hero.use_painkillers():
                 enemy.attack(hero)
                 if hero.health == hero.max_health:
-
                     print(f"{hero.name} is already at full health!")
                     return False
                 if hero.health <= 0:

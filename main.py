@@ -1,7 +1,7 @@
 import json
 
 from combat import run_encounter
-from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME, NUM_FLOORS
+from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME, NUM_FLOORS, REST_HEAL_FRACTION
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
@@ -15,7 +15,6 @@ def play_run():
         print(f"\n--- Floor {floor_number} ---")
         rooms = generate_floor()
         for room in rooms:
-
             print(f"\nYou enter {room.place}.")
             if room.room_type == "enemy":
                 enemy = random_enemy(floor_number)
@@ -29,12 +28,19 @@ def play_run():
 
             elif room.room_type == "rest":
                 print("You find a safe place to rest.")
-                hero.heal()
+                rest_amount = int(hero.max_health * REST_HEAL_FRACTION)
+                gained = hero.heal(rest_amount)
+                if gained == 0:
+                    print(f"{hero.name} is already at full health!")
+                else:
+                    print(
+                        f"{hero.name} heals for {gained}. Current health: {hero.health}/{hero.max_health}"
+                    )
             else:
                 print("The room is empty. Nothing happens.")
         boss = create_boss(floor_number)
         print(
-            f"\n{hero.name} heads to {BOSS_ROOMS[floor_number -1]} to face the {boss.name}!"
+            f"\n{hero.name} heads to {BOSS_ROOMS[floor_number - 1]} to face the {boss.name}!"
         )
         print(f"\nYou arrive at {BOSS_ROOMS[floor_number - 1]}.")
         if not run_encounter(hero, boss):
