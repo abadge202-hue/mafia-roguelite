@@ -3,7 +3,7 @@ def fight(hero, enemy):
         print()
 
         action = input(
-            f"{hero.name} {hero.health}/{hero.max_health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: "
+            f"{hero.name} {hero.health}/{hero.max_health}|{enemy.name} {enemy.health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: "
         )
         if action == "1":
             hero.attack(enemy)
@@ -20,13 +20,11 @@ def fight(hero, enemy):
         elif action == "3":
             if hero.use_painkillers():
                 enemy.attack(hero)
-                if hero.health == hero.max_health:
-                    print(f"{hero.name} is already at full health!")
-                    return False
                 if hero.health <= 0:
                     break
         else:
             print("Invalid choice. Please choose again.")
+    return hero.health > 0
 
 
 def run_encounter(hero, enemy):
