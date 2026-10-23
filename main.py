@@ -1,10 +1,14 @@
 import json
+from pathlib import Path
 
 from combat import run_encounter
 from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME, NUM_FLOORS, REST_HEAL_FRACTION
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
+
+
+BEST_RUN_FILE = Path(__file__).parent / "best_run.json"
 
 
 def play_run():
@@ -53,25 +57,24 @@ def play_run():
 
 
 def show_summary(stats):
-        print("\n--- Game Summary ---")
-        result = "Won" if stats["Won"] else "Lost"
-        print(f"Results: {result}")
-        print(f"Floor Reached: {stats['Floors']}")
-        print(f"Enemies Defeated: {stats['Enemies Defeated']}")
-        print(f"Items Found: {stats['Items Found']}")
-   
+    print("\n--- Game Summary ---")
+    result = "Won" if stats["Won"] else "Lost"
+    print(f"Results: {result}")
+    print(f"Floor Reached: {stats['Floors']}")
+    print(f"Enemies Defeated: {stats['Enemies Defeated']}")
+    print(f"Items Found: {stats['Items Found']}")
 
 
 def load_best_run():
     try:
-        with open("best_run.json", "r") as file:
+        with open(BEST_RUN_FILE, "r") as file:
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         return None
 
 
 def save_best_run(stats):
-    with open("best_run.json", "w") as f:
+    with open(BEST_RUN_FILE, "w") as f:
         json.dump(stats, f)
 
 
