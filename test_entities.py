@@ -1,6 +1,8 @@
+import random
+
+from config import BLOCK_FRACTION, ENEMY_TYPES, FLOOR_SCALING
 from entities import Character, random_enemy
 from items import Item
-from config import ENEMY_TYPES, FLOOR_SCALING
 
 
 def test_painkillers_heal_to_full_counts_as_used():
@@ -52,3 +54,19 @@ def test_enemy_floor_scaling():
             base_damage = damage
     assert enemy.health == round(base_health * (1 + 2 * FLOOR_SCALING))
     assert enemy.damage == round(base_damage * (1 + 2 * FLOOR_SCALING))
+
+
+def test_blocked_damage():
+    attacker = Character("Test", 100, 10)
+    target = Character("dummy", 100, 10)
+    random.seed(17)
+    attacker.attack(target)
+    normal_damage = 100 - target.health
+    attacker = Character("Test", 100, 10)
+    target = Character("dummy", 100, 10)
+    random.seed(17)
+    target.defending = True
+    attacker.attack(target)
+    blocked_damage = 100 - target.health
+    assert blocked_damage == int(normal_damage * BLOCK_FRACTION)
+
