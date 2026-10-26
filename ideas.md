@@ -2,9 +2,7 @@
 
 ## Balance
 - Items stack: decide whether a new weapon replaces the old one
-- Check the Underboss is beatable after three floors
 - Make blocking meaningful (Counter-attack, "Grudge meter")
-
 ## Features
 - Status line at each room: HP, damage, defense, painkillers
 - Show when armor absorbs damage
@@ -24,3 +22,5 @@
 - NamedTuples for ENEMY_TYPES, ITEM_TYPES (name the fields; unpacking still works)
 - Enum for room types so a typo errors instead of becoming an empty room
 - @dataclass for Room and Item (replaces hand-writtien __init__)
+## Tests
+- test all enemy types for scaling
