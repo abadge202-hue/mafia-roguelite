@@ -33,3 +33,11 @@ def test_heal_does_not_exceed_max():
     gained = hero.heal(50)
     assert hero.health == 100
     assert gained == 20
+
+
+def test_damage_floor_is_one():
+    attacker = Character("Test", 100, 10)
+    target = Character("dummy", 100, 10)
+    target.defense = 100
+    attacker.attack(target)
+    assert target.health == 99
