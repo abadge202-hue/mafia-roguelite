@@ -1,25 +1,39 @@
+def report_attack(attacker, target, damage, blocked):
+    if blocked:
+        print(f"{target.name} blocks! {attacker.name}'s hit is reduced to {damage}.")
+    else:
+        print(f"{attacker.name} attacks {target.name} for {damage}!")
+    if target.health > 0:
+        print(f"{target.name} has {target.health} health remaining.")
+
+
 def fight(hero, enemy):
     while True:
         print()
 
         action = input(
-            f"{hero.name} {hero.health}/{hero.max_health} | {enemy.name} {enemy.health} Choose an action: (1) Attack (2) Defend (3) Use Painkillers: "
+            f"{hero.name} {hero.health}/{hero.max_health} | {enemy.name} {enemy.health} "
+            "Choose an action: (1) Attack (2) Defend (3) Painkillers: "
         )
         if action == "1":
-            hero.attack(enemy)
+            damage, blocked = hero.attack(enemy)
+            report_attack(hero, enemy, damage, blocked)
             if enemy.health <= 0:
                 break
-            enemy.attack(hero)
+            damage, blocked = enemy.attack(hero)
+            report_attack(enemy, hero, damage, blocked)
             if hero.health <= 0:
                 break
         elif action == "2":
             hero.defending = True
-            enemy.attack(hero)
+            damage, blocked = enemy.attack(hero)
+            report_attack(enemy, hero, damage, blocked)
             if hero.health <= 0:
                 break
         elif action == "3":
             if hero.use_painkillers():
-                enemy.attack(hero)
+                damage, blocked = enemy.attack(hero)
+                report_attack(enemy, hero, damage, blocked)
                 if hero.health <= 0:
                     break
         else:

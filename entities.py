@@ -60,16 +60,13 @@ class Character:
             1, random.randint(self.damage - DAMAGE_SPREAD, self.damage + DAMAGE_SPREAD)
         )
         damage_dealt = max(1, damage_dealt - target.defense)
+        blocked = False
         if target.defending:
-            print(f"{self.name} attacks {target.name} for {damage_dealt}!")
+            blocked = True
             damage_dealt = int(damage_dealt * BLOCK_FRACTION)
-            print(f"{target.name} is defending! Damage is reduced to {damage_dealt}.")
             target.defending = False
         target.health = max(0, target.health - damage_dealt)
-        print(f"{self.name} hits {target.name} for {damage_dealt}")
-
-        if target.health > 0:
-            print(f"{target.name} has {target.health} health remaining.")
+        return damage_dealt, blocked
 
 
 def create_boss(floor_number):
