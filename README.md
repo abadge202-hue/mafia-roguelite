@@ -6,9 +6,10 @@ A turn-based terminal roguelite where you fight your way up a mafia family, floo
 - Requires Python 3.10+
 - Clone or download the repo, then run `python main.py` in the project folder
 
-## Running test
-1. Install pytest: `python -m pip install pytest`
+## Running tests
+1. Install the dev tools (pytest and ruff): `python -m pip install -r requirements-dev.txt`
 2. From the project folder, run: `python -m pytest`
+3. Format and lint: `python -m ruff format . && python -m ruff check .`
 
 Tests cover healing, painkillers, armor's damage floor, blocking, and enemy scaling.
 
