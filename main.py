@@ -7,7 +7,6 @@ from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
 
-
 BEST_RUN_FILE = Path(__file__).parent / "best_run.json"
 
 
