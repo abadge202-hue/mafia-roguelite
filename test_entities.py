@@ -1,5 +1,6 @@
-from entities import Character
+from entities import Character, random_enemy
 from items import Item
+from config import ENEMY_TYPES, FLOOR_SCALING
 
 
 def test_painkillers_heal_to_full_counts_as_used():
@@ -41,3 +42,13 @@ def test_damage_floor_is_one():
     target.defense = 100
     attacker.attack(target)
     assert target.health == 99
+
+
+def test_enemy_floor_scaling():
+    enemy = random_enemy(3)
+    for name, health, damage in ENEMY_TYPES:
+        if name == enemy.name:
+            base_health = health
+            base_damage = damage
+    assert enemy.health == round(base_health * (1 + 2 * FLOOR_SCALING))
+    assert enemy.damage == round(base_damage * (1 + 2 * FLOOR_SCALING))
