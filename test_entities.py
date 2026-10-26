@@ -1,0 +1,27 @@
+from entities import Character
+from items import Item
+
+
+def test_painkillers_heal_to_full_counts_as_used():
+    hero = Character("Test", 100, 10)
+    hero.health = 80
+    hero.inventory.append(Item("Painkillers", "potion", 30))
+    assert hero.use_painkillers() is True
+    assert hero.health == 100
+    assert hero.inventory == []
+
+
+def test_use_painkillers_at_full_health():
+    hero = Character("Test", 100, 10)
+    painkiller = Item("Painkillers", "potion", 30)
+    hero.inventory.append(painkiller)
+    assert hero.use_painkillers() is False
+    assert hero.health == 100
+    assert painkiller in hero.inventory
+
+
+def test_no_painkillers_in_inventory():
+    hero = Character("Test", 100, 10)
+    hero.health = 50
+    assert hero.use_painkillers() is False
+    assert hero.health == 50

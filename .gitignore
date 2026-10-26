@@ -1,3 +1,5 @@
 __pycache__/
 best_run.json
 .ruff_cache/
+.venv/
+.pytest_cache/
