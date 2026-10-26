@@ -25,3 +25,11 @@ def test_no_painkillers_in_inventory():
     hero.health = 50
     assert hero.use_painkillers() is False
     assert hero.health == 50
+
+
+def test_heal_does_not_exceed_max():
+    hero = Character("Test", 100, 10)
+    hero.health = 80
+    gained = hero.heal(50)
+    assert hero.health == 100
+    assert gained == 20
