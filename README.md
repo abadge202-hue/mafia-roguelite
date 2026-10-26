@@ -6,6 +6,12 @@ A turn-based terminal roguelite where you fight your way up a mafia family, floo
 - Requires Python 3.10+
 - Clone or download the repo, then run `python main.py` in the project folder
 
+## Running test
+1. Install pytest: `python -m pip install pytest`
+2. From the project folder, run: `python -m pytest`
+
+Tests cover healing, painkillers, armor's damage floor, blocking, and enemy scaling.
+
 ## How to play
 - Press 1 to attack the enemy
 - Press 2 to defend against the enemy attack
@@ -63,8 +69,9 @@ Amanda defeated Soldier!
 - I used to write the same code in several places. Now I look for repeated blocks and turn them into one function (`run_encounter` replaced two copies of the fight logic), so a change only has to happen in one place.
 - Leftover code from refactors caused bugs twice, including a whole extra fight running after the menu loop. Now I check `git diff` after every change to make sure the old version is really gone.
 - I turned playtest feedback into an `ideas.md` backlog split into Balance, Features and Cleanup, then worked through it in small, focused commits.
+- A passing test isn’t proof on its own. My no-painkillers test passed because the hero was at full health, so it never reached the code it was meant to check. Now I break the code on purpose to confirm each test can actually fail.
 
 ## What's next
-- Tests with pytest 
+- More test coverage(all enemy types, combat once logic is split from display)
 - Separating game logic from display 
 - The defend rework
