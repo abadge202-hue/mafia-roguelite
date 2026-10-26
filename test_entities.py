@@ -69,4 +69,3 @@ def test_blocked_damage():
     attacker.attack(target)
     blocked_damage = 100 - target.health
     assert blocked_damage == int(normal_damage * BLOCK_FRACTION)
-
