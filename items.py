@@ -1,13 +1,13 @@
 import random
 
 from config import ITEM_TYPES
+from dataclasses import dataclass
 
-
+@dataclass
 class Item:
-    def __init__(self, name, item_type, value):
-        self.name = name
-        self.item_type = item_type
-        self.value = value
+  name: str
+  item_type: str
+  value: int
 
 
 def random_item():

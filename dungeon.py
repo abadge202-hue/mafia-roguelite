@@ -1,12 +1,12 @@
 import random
 
-from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, ROOM_WEIGHTS
+from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, RoomType,  ROOM_WEIGHTS
+from dataclasses import dataclass
 
-
+@dataclass
 class Room:
-    def __init__(self, room_type, place):
-        self.room_type = room_type
-        self.place = place
+    room_type: RoomType
+    place: str
 
 
 PLACE_TYPES = [
