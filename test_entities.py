@@ -14,7 +14,7 @@ def test_painkillers_heal_to_full_counts_as_used():
     assert hero.health == 100
     assert gained == 20
     assert hero.inventory == []
-    assert item_name is None
+    assert item_name == "Painkillers"
 
 
 def test_use_painkillers_at_full_health():
