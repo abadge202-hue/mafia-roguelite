@@ -2,7 +2,14 @@ import json
 from pathlib import Path
 
 from combat import run_encounter
-from config import HERO_DAMAGE, HERO_HEALTH, HERO_NAME, NUM_FLOORS, REST_HEAL_FRACTION
+from config import (
+    HERO_DAMAGE,
+    HERO_HEALTH,
+    HERO_NAME,
+    NUM_FLOORS,
+    REST_HEAL_FRACTION,
+    RoomType,
+)
 from dungeon import BOSS_ROOMS, generate_floor
 from entities import Character, create_boss, random_enemy
 from items import random_item
@@ -19,12 +26,12 @@ def play_run():
         rooms = generate_floor()
         for room in rooms:
             print(f"\nYou enter {room.place}.")
-            if room.room_type == "enemy":
+            if room.room_type == RoomType.ENEMY:
                 enemy = random_enemy(floor_number)
                 if not run_encounter(hero, enemy):
                     return stats
                 stats["Enemies Defeated"] += 1
-            elif room.room_type == "treasure":
+            elif room.room_type == RoomType.TREASURE:
                 item = random_item()
                 hero.pick_up(item)
                 if item.item_type == "potion":
@@ -39,7 +46,7 @@ def play_run():
                     )
                 stats["Items Found"] += 1
 
-            elif room.room_type == "rest":
+            elif room.room_type == RoomType.REST:
                 print("You find a safe place to rest.")
                 rest_amount = int(hero.max_health * REST_HEAL_FRACTION)
                 gained = hero.heal(rest_amount)
@@ -49,7 +56,7 @@ def play_run():
                     print(
                         f"{hero.name} heals for {gained}. Current health: {hero.health}/{hero.max_health}"
                     )
-            else:
+            elif room.room_type == RoomType.EMPTY:
                 print("The room is empty. Nothing happens.")
         boss = create_boss(floor_number)
         print(
