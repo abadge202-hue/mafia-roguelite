@@ -1,7 +1,8 @@
 import random
 
-from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, RoomType,  ROOM_WEIGHTS
+from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, RoomType, ROOM_WEIGHTS
 from dataclasses import dataclass
+
 
 @dataclass
 class Room:
@@ -25,6 +26,7 @@ BOSS_ROOMS = [
 
 
 def generate_floor():
+    """Return a list of random rooms for one floor."""
     count = random.randint(MIN_ROOMS, MAX_ROOMS)
     return [
         Room(

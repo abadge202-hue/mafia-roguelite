@@ -18,6 +18,7 @@ BEST_RUN_FILE = Path(__file__).parent / "best_run.json"
 
 
 def play_run():
+    """Play one full run from the first floor; return the run's stats when the hero dies or beats the final boss."""
     stats = {"Floors": 1, "Enemies Defeated": 0, "Items Found": 0, "Won": False}
     hero = Character(HERO_NAME, HERO_HEALTH, HERO_DAMAGE)
     for floor_number in range(1, NUM_FLOORS + 1):
@@ -73,6 +74,7 @@ def play_run():
 
 
 def show_summary(stats):
+    """Print the run summary: result, floor reached, enemies defeated and items found."""
     print("\n--- Game Summary ---")
     result = "Won" if stats["Won"] else "Lost"
     print(f"Results: {result}")
@@ -82,6 +84,7 @@ def show_summary(stats):
 
 
 def load_best_run():
+    """Return the saved best run as a dict, or None if there is no save file yet."""
     try:
         with open(BEST_RUN_FILE, "r") as file:
             return json.load(file)
@@ -90,15 +93,18 @@ def load_best_run():
 
 
 def save_best_run(stats):
+    """Write the run's stats to the best-run file."""
     with open(BEST_RUN_FILE, "w") as f:
         json.dump(stats, f)
 
 
 def run_score(run):
+    """Return a (won, floor, enemies defeated) tuple used to rank runs, best first."""
     return (run["Won"], run["Floors"], run["Enemies Defeated"])
 
 
 def main():
+    """Show the main menu in a loop: play a run, print its summary and save new bests, until the player exits."""
     while True:
         print("\nThe Syndicate Loop!")
         print("1. Start a new game")

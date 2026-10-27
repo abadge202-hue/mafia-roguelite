@@ -1,4 +1,5 @@
 def report_attack(attacker, target, damage, blocked):
+    """Print one attack's result: the hit or block, then remaining health if the target survived."""
     if blocked:
         print(f"{target.name} blocks! {attacker.name}'s hit is reduced to {damage}.")
     else:
@@ -8,6 +9,7 @@ def report_attack(attacker, target, damage, blocked):
 
 
 def fight(hero, enemy):
+    """Run turn-by-turn combat with player input until one side falls; return True if the hero survived."""
     while True:
         print()
 
@@ -50,6 +52,7 @@ def fight(hero, enemy):
 
 
 def run_encounter(hero, enemy):
+    """Announce the enemy, run the fight, and print who won; return True if the hero survived."""
     print(f"You encounter: {enemy.name}!")
     print(f"{enemy.name} has {enemy.health} health and {enemy.damage} damage.")
     fight(hero, enemy)
