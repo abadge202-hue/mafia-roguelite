@@ -43,17 +43,10 @@ class Character:
     def pick_up(self, item):
         if item.item_type == "potion":
             self.inventory.append(item)
-            print(f"{self.name} picked up {item.name}!")
         elif item.item_type == "weapon":
             self.damage += item.value
-            print(
-                f"{self.name} picked up {item.name}! Damage increased by {item.value}."
-            )
         elif item.item_type == "armor":
             self.defense += item.value
-            print(
-                f"{self.name} picked up {item.name}! Defense increased by {item.value}."
-            )
 
     def attack(self, target):
         damage_dealt = max(

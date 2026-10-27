@@ -27,6 +27,16 @@ def play_run():
             elif room.room_type == "treasure":
                 item = random_item()
                 hero.pick_up(item)
+                if item.item_type == "potion":
+                    print(f"{hero.name} picked up {item.name}!")
+                elif item.item_type == "armor":
+                    print(
+                        f"{hero.name} picked up {item.name}! Defense increased by {item.value}."
+                    )
+                elif item.item_type == "weapon":
+                    print(
+                        f"{hero.name} picked up {item.name}! Damage increased by {item.value}."
+                    )
                 stats["Items Found"] += 1
 
             elif room.room_type == "rest":
