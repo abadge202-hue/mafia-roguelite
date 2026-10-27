@@ -31,11 +31,19 @@ def fight(hero, enemy):
             if hero.health <= 0:
                 break
         elif action == "3":
-            if hero.use_painkillers():
+            status, gained, item_name = hero.use_painkillers()
+            if status == "used":
+                print(
+                    f"{hero.name} uses {item_name} and heals for {gained}. Current health: {hero.health}/{hero.max_health}"
+                )
                 damage, blocked = enemy.attack(hero)
                 report_attack(enemy, hero, damage, blocked)
                 if hero.health <= 0:
                     break
+            elif status == "full":
+                print(f"{hero.name} is already at full health!")
+            elif status == "none":
+                print(f"{hero.name} has no Painkillers to use!")
         else:
             print("Invalid choice. Please choose again.")
     return hero.health > 0

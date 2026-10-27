@@ -9,25 +9,34 @@ def test_painkillers_heal_to_full_counts_as_used():
     hero = Character("Test", 100, 10)
     hero.health = 80
     hero.inventory.append(Item("Painkillers", "potion", 30))
-    assert hero.use_painkillers() is True
+    status, gained, item_name = hero.use_painkillers()
+    assert status == "used"
     assert hero.health == 100
+    assert gained == 20
     assert hero.inventory == []
+    assert item_name is None
 
 
 def test_use_painkillers_at_full_health():
     hero = Character("Test", 100, 10)
     painkiller = Item("Painkillers", "potion", 30)
     hero.inventory.append(painkiller)
-    assert hero.use_painkillers() is False
+    status, gained, item_name = hero.use_painkillers()
+    assert status == "full"
     assert hero.health == 100
     assert painkiller in hero.inventory
+    assert gained == 0
+    assert item_name is None
 
 
 def test_no_painkillers_in_inventory():
     hero = Character("Test", 100, 10)
     hero.health = 50
-    assert hero.use_painkillers() is False
+    status, gained, item_name = hero.use_painkillers()
+    assert status == "none"
     assert hero.health == 50
+    assert gained == 0
+    assert item_name is None
 
 
 def test_heal_does_not_exceed_max():
