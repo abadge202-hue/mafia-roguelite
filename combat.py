@@ -1,4 +1,9 @@
-def report_attack(attacker, target, damage, blocked):
+from entities import Character
+
+
+def report_attack(
+    attacker: Character, target: Character, damage: int, blocked: bool
+) -> None:
     """Print one attack's result: the hit or block, then remaining health if the target survived."""
     if blocked:
         print(f"{target.name} blocks! {attacker.name}'s hit is reduced to {damage}.")
@@ -8,7 +13,7 @@ def report_attack(attacker, target, damage, blocked):
         print(f"{target.name} has {target.health} health remaining.")
 
 
-def fight(hero, enemy):
+def fight(hero: Character, enemy: Character) -> bool:
     """Run turn-by-turn combat with player input until one side falls; return True if the hero survived."""
     while True:
         print()
@@ -51,7 +56,7 @@ def fight(hero, enemy):
     return hero.health > 0
 
 
-def run_encounter(hero, enemy):
+def run_encounter(hero: Character, enemy: Character) -> bool:
     """Announce the enemy, run the fight, and print who won; return True if the hero survived."""
     print(f"You encounter: {enemy.name}!")
     print(f"{enemy.name} has {enemy.health} health and {enemy.damage} damage.")
