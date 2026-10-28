@@ -102,11 +102,14 @@ def run_score(run):
     """Return a (won, floor, enemies defeated) tuple used to rank runs, best first."""
     return (run["Won"], run["Floors"], run["Enemies Defeated"])
 
+
 def describe_best(best: dict) -> str:
     """Return a one-line description of the best run."""
     if best["Won"]:
         return f"Best run: Defeated the Family, {best['Enemies Defeated']} enemies defeated"
-    return f"Best run: floor {best['Floors']}, {best['Enemies Defeated']} enemies defeated"
+    return (
+        f"Best run: floor {best['Floors']}, {best['Enemies Defeated']} enemies defeated"
+    )
 
 
 def main():
@@ -117,7 +120,7 @@ def main():
         if best is None:
             print("No best run yet.")
         else:
-            print(describe_best(best))    
+            print(describe_best(best))
         print("1. Start a new game")
         print("2. Exit")
         choice = input("Enter your choice: ")
