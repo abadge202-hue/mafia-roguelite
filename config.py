@@ -45,7 +45,7 @@ class RoomType(Enum):
 
 
 ROOM_TYPES = [RoomType.ENEMY, RoomType.TREASURE, RoomType.EMPTY, RoomType.REST]
-ROOM_WEIGHTS = [50, 15, 15, 20]
+ROOM_WEIGHTS = [60, 15, 0, 25]
 MIN_ROOMS = 5
 MAX_ROOMS = 8
 FLOOR_SCALING = 0.2
