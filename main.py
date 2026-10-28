@@ -77,7 +77,7 @@ def show_summary(stats):
     """Print the run summary: result, floor reached, enemies defeated and items found."""
     print("\n--- Game Summary ---")
     result = "Won" if stats["Won"] else "Lost"
-    print(f"Results: {result}")
+    print(f"Result: {result}")
     print(f"Floor Reached: {stats['Floors']}")
     print(f"Enemies Defeated: {stats['Enemies Defeated']}")
     print(f"Items Found: {stats['Items Found']}")
@@ -102,11 +102,22 @@ def run_score(run):
     """Return a (won, floor, enemies defeated) tuple used to rank runs, best first."""
     return (run["Won"], run["Floors"], run["Enemies Defeated"])
 
+def describe_best(best: dict) -> str:
+    """Return a one-line description of the best run."""
+    if best["Won"]:
+        return f"Best run: Defeated the Family, {best['Enemies Defeated']} enemies defeated"
+    return f"Best run: floor {best['Floors']}, {best['Enemies Defeated']} enemies defeated"
+
 
 def main():
     """Show the main menu in a loop: play a run, print its summary and save new bests, until the player exits."""
     while True:
         print("\nThe Syndicate Loop!")
+        best = load_best_run()
+        if best is None:
+            print("No best run yet.")
+        else:
+            print(describe_best(best))    
         print("1. Start a new game")
         print("2. Exit")
         choice = input("Enter your choice: ")
@@ -118,10 +129,7 @@ def main():
                 save_best_run(stats)
                 print("New best run!")
             else:
-                print(
-                    f"Best run: Reached floor {best['Floors']} and defeated "
-                    f"{best['Enemies Defeated']} enemies."
-                )
+                print(describe_best(best))
         elif choice == "2":
             print("Thank you for playing! Goodbye.")
             break
