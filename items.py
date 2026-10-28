@@ -1,7 +1,7 @@
 import random
+from dataclasses import dataclass
 
 from config import ITEM_TYPES
-from dataclasses import dataclass
 
 
 @dataclass

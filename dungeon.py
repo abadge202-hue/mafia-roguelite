@@ -1,7 +1,7 @@
 import random
-
-from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, RoomType, ROOM_WEIGHTS
 from dataclasses import dataclass
+
+from config import MAX_ROOMS, MIN_ROOMS, ROOM_TYPES, ROOM_WEIGHTS, RoomType
 
 
 @dataclass
