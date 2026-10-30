@@ -19,7 +19,13 @@ BEST_RUN_FILE = Path(__file__).parent / "best_run.json"
 
 def play_run():
     """Play one full run from the first floor; return the run's stats when the hero dies or beats the final boss."""
-    stats = {"Floors": 1, "Enemies Defeated": 0, "Items Found": 0, "Won": False}
+    stats = {
+        "Floors": 1,
+        "Enemies Defeated": 0,
+        "Bosses Defeated": 0,
+        "Items Found": 0,
+        "Won": False,
+    }
     hero = Character(HERO_NAME, HERO_HEALTH, HERO_DAMAGE)
     for floor_number in range(1, NUM_FLOORS + 1):
         stats["Floors"] = floor_number
@@ -66,7 +72,7 @@ def play_run():
         print(f"\nYou arrive at {BOSS_ROOMS[floor_number - 1]}.")
         if not run_encounter(hero, boss):
             return stats
-        stats["Enemies Defeated"] += 1
+        stats["Bosses Defeated"] += 1
         print("You have cleared the floor! Congratulations!")
 
     stats["Won"] = True
@@ -80,6 +86,7 @@ def show_summary(stats):
     print(f"Result: {result}")
     print(f"Floor Reached: {stats['Floors']}")
     print(f"Enemies Defeated: {stats['Enemies Defeated']}")
+    print(f"Bosses Defeated: {stats['Bosses Defeated']}")
     print(f"Items Found: {stats['Items Found']}")
 
 
@@ -108,7 +115,8 @@ def describe_best(best: dict) -> str:
     if best["Won"]:
         return f"Best run: Defeated the Family, {best['Enemies Defeated']} enemies defeated"
     return (
-        f"Best run: floor {best['Floors']}, {best['Enemies Defeated']} enemies defeated"
+        f"Best run: floor {best['Floors']}, {best.get('Bosses Defeated', 0)} bosses defeated, "
+        f"{best['Enemies Defeated']} enemies defeated"
     )
 
 
