@@ -2,7 +2,6 @@
 
 ## Balance
 - Items stack: decide whether a new weapon replaces the old one
-- Make blocking meaningful (Counter-attack, "Grudge meter")
 ## Features
 - Status line at each room: HP, damage, defense, painkillers
 - Show when armor absorbs damage
@@ -15,6 +14,11 @@
 - Add Menu best-run display
 - Crit damage for characters
 - Boss intros? (most likely)
+## Defend rework: telegraphed crits + grudge meter
+- Enemies wind up (telegraphed), next hit is a crit
+- Blocking fills a grudge meter by damage absorbed (cap GRUDGE_MAX), resets each fight
+- Full grudge unlocks "(4) Settle the Score": GRUDGE_MULTIPLIER x damage, resets meter
+- sim.py measures win rates per strategy; tune config until smart play beats mashing 1
 ## Cleanup
 - add one-line doc strings
 ## Tests
