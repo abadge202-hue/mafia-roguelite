@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+import stats
 from combat import run_encounter
 from config import (
     HERO_DAMAGE,
@@ -19,16 +20,17 @@ BEST_RUN_FILE = Path(__file__).parent / "best_run.json"
 
 def play_run():
     """Play one full run from the first floor; return the run's stats when the hero dies or beats the final boss."""
-    stats = {
+    run_stats = {
         "Floors": 1,
         "Enemies Defeated": 0,
         "Bosses Defeated": 0,
         "Items Found": 0,
+        "Beaten By": None,
         "Won": False,
     }
     hero = Character(HERO_NAME, HERO_HEALTH, HERO_DAMAGE)
     for floor_number in range(1, NUM_FLOORS + 1):
-        stats["Floors"] = floor_number
+        run_stats["Floors"] = floor_number
         print(f"\n--- Floor {floor_number} ---")
         rooms = generate_floor()
         for room in rooms:
@@ -36,8 +38,9 @@ def play_run():
             if room.room_type == RoomType.ENEMY:
                 enemy = random_enemy(floor_number)
                 if not run_encounter(hero, enemy):
-                    return stats
-                stats["Enemies Defeated"] += 1
+                    run_stats["Beaten By"] = enemy.name
+                    return run_stats
+                run_stats["Enemies Defeated"] += 1
             elif room.room_type == RoomType.TREASURE:
                 item = random_item()
                 hero.pick_up(item)
@@ -51,7 +54,7 @@ def play_run():
                     print(
                         f"{hero.name} picked up {item.name}! Damage increased by {item.value}."
                     )
-                stats["Items Found"] += 1
+                run_stats["Items Found"] += 1
 
             elif room.room_type == RoomType.REST:
                 print("You find a safe place to rest.")
@@ -71,23 +74,25 @@ def play_run():
         )
         print(f"\nYou arrive at {BOSS_ROOMS[floor_number - 1]}.")
         if not run_encounter(hero, boss):
-            return stats
-        stats["Bosses Defeated"] += 1
+            run_stats["Beaten By"] = boss.name
+            return run_stats
+        run_stats["Bosses Defeated"] += 1
         print("You have cleared the floor! Congratulations!")
 
-    stats["Won"] = True
-    return stats
+    run_stats["Won"] = True
+    run_stats["Beaten By"] = None
+    return run_stats
 
 
-def show_summary(stats):
+def show_summary(run_stats):
     """Print the run summary: result, floor reached, enemies defeated and items found."""
     print("\n--- Game Summary ---")
-    result = "Won" if stats["Won"] else "Lost"
+    result = "Won" if run_stats["Won"] else "Lost"
     print(f"Result: {result}")
-    print(f"Floor Reached: {stats['Floors']}")
-    print(f"Enemies Defeated: {stats['Enemies Defeated']}")
-    print(f"Bosses Defeated: {stats['Bosses Defeated']}")
-    print(f"Items Found: {stats['Items Found']}")
+    print(f"Floor Reached: {run_stats['Floors']}")
+    print(f"Enemies Defeated: {run_stats['Enemies Defeated']}")
+    print(f"Bosses Defeated: {run_stats['Bosses Defeated']}")
+    print(f"Items Found: {run_stats['Items Found']}")
 
 
 def load_best_run():
@@ -105,9 +110,9 @@ def save_best_run(stats):
         json.dump(stats, f)
 
 
-def run_score(run):
+def run_score(run_stats):
     """Return a (won, floor, enemies defeated) tuple used to rank runs, best first."""
-    return (run["Won"], run["Floors"], run["Enemies Defeated"])
+    return (run_stats["Won"], run_stats["Floors"], run_stats["Enemies Defeated"])
 
 
 def describe_best(best: dict) -> str:
@@ -122,6 +127,7 @@ def describe_best(best: dict) -> str:
 
 def main():
     """Show the main menu in a loop: play a run, print its summary and save new bests, until the player exits."""
+    stats.create_runs_table()
     while True:
         print("\nThe Syndicate Loop!")
         best = load_best_run()
@@ -133,11 +139,18 @@ def main():
         print("2. Exit")
         choice = input("Enter your choice: ")
         if choice == "1":
-            stats = play_run()
-            show_summary(stats)
+            run_stats = play_run()
+            show_summary(run_stats)
+            stats.save_run(
+                run_stats["Floors"],
+                run_stats["Enemies Defeated"],
+                run_stats["Bosses Defeated"],
+                run_stats["Won"],
+                run_stats["Beaten By"],
+            )
             best = load_best_run()
-            if best is None or run_score(stats) > run_score(best):
-                save_best_run(stats)
+            if best is None or run_score(run_stats) > run_score(best):
+                save_best_run(run_stats)
                 print("New best run!")
             else:
                 print(describe_best(best))
