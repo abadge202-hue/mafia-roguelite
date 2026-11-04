@@ -84,7 +84,7 @@ def test_attack_reports_blocked_when_defending():
     attacker = Character("Test", 100, 10)
     target = Character("dummy", 100, 10)
     target.defending = True
-    damage, blocked = attacker.attack(target)
+    damage, blocked, _crit = attacker.attack(target)
     assert blocked
     assert damage == 100 - target.health
 
@@ -92,6 +92,6 @@ def test_attack_reports_blocked_when_defending():
 def test_attack_reports_not_blocked_normally():
     attacker = Character("Test", 100, 10)
     target = Character("dummy", 100, 10)
-    damage, blocked = attacker.attack(target)
+    damage, blocked, _crit = attacker.attack(target)
     assert not blocked
     assert damage == 100 - target.health

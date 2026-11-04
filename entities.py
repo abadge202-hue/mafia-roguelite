@@ -3,6 +3,7 @@ import random
 from config import (
     BLOCK_FRACTION,
     BOSS_TYPES,
+    CRIT_MULTIPLIER,
     DAMAGE_SPREAD,
     ENEMY_TYPES,
     FLOOR_SCALING,
@@ -48,10 +49,15 @@ class Character:
             self.defense += item.value
 
     def attack(self, target):
-        """Hit the target and return( damage dealt, whether it was blocked)."""
+        """Hit the target and return (damage dealt, whether it was blocked, whether it was a critical hit)."""
         damage_dealt = max(
             1, random.randint(self.damage - DAMAGE_SPREAD, self.damage + DAMAGE_SPREAD)
         )
+        crit = False
+        if self.winding_up:
+            damage_dealt = int(damage_dealt * CRIT_MULTIPLIER)
+            crit = True
+            self.winding_up = False
         damage_dealt = max(1, damage_dealt - target.defense)
         blocked = False
         if target.defending:
@@ -59,7 +65,7 @@ class Character:
             damage_dealt = int(damage_dealt * BLOCK_FRACTION)
             target.defending = False
         target.health = max(0, target.health - damage_dealt)
-        return damage_dealt, blocked
+        return damage_dealt, blocked, crit
 
 
 def create_boss(floor_number):

@@ -1,16 +1,29 @@
+import random
+
+from config import CRIT_CHANCE
 from entities import Character
 
 
 def report_attack(
-    attacker: Character, target: Character, damage: int, blocked: bool
+    attacker: Character, target: Character, damage: int, blocked: bool, crit: bool
 ) -> None:
     """Print one attack's result: the hit or block, then remaining health if the target survived."""
+    if crit:
+        print(f"{attacker.name} lands a critical hit!")
     if blocked:
         print(f"{target.name} blocks! {attacker.name}'s hit is reduced to {damage}.")
     else:
         print(f"{attacker.name} attacks {target.name} for {damage}!")
     if target.health > 0:
         print(f"{target.name} has {target.health} health remaining.")
+
+
+def enemy_turn(enemy: Character, hero: Character) -> None:
+    damage, blocked, crit = enemy.attack(hero)
+    report_attack(enemy, hero, damage, blocked, crit)
+    if hero.health > 0 and random.random() < CRIT_CHANCE:
+        enemy.winding_up = True
+        print(f"{enemy.name} is winding up for a critical hit!")
 
 
 def fight(hero: Character, enemy: Character) -> bool:
@@ -23,18 +36,16 @@ def fight(hero: Character, enemy: Character) -> bool:
             "Choose an action: (1) Attack (2) Defend (3) Painkillers: "
         )
         if action == "1":
-            damage, blocked = hero.attack(enemy)
-            report_attack(hero, enemy, damage, blocked)
+            damage, blocked, crit = hero.attack(enemy)
+            report_attack(hero, enemy, damage, blocked, crit)
             if enemy.health <= 0:
                 break
-            damage, blocked = enemy.attack(hero)
-            report_attack(enemy, hero, damage, blocked)
+            enemy_turn(enemy, hero)
             if hero.health <= 0:
                 break
         elif action == "2":
             hero.defending = True
-            damage, blocked = enemy.attack(hero)
-            report_attack(enemy, hero, damage, blocked)
+            enemy_turn(enemy, hero)
             if hero.health <= 0:
                 break
         elif action == "3":
@@ -43,8 +54,7 @@ def fight(hero: Character, enemy: Character) -> bool:
                 print(
                     f"{hero.name} uses {item_name} and heals for {gained}. Current health: {hero.health}/{hero.max_health}"
                 )
-                damage, blocked = enemy.attack(hero)
-                report_attack(enemy, hero, damage, blocked)
+                enemy_turn(enemy, hero)
                 if hero.health <= 0:
                     break
             elif status == "full":
