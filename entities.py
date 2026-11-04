@@ -16,6 +16,7 @@ class Character:
         self.damage = damage
         self.max_health = health
         self.defending = False
+        self.winding_up = False
         self.defense = 0
         self.inventory = []
 
