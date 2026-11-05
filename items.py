@@ -12,6 +12,6 @@ class Item:
 
 
 def random_item():
-    """Return a random item: weapon, armor, potion."""
-    name, item_type, value = random.choice(ITEM_TYPES)
-    return Item(name, item_type, value)
+    """Return a random item: (weapon, armor, potion), weighted by drop chance."""
+    pick = random.choices(ITEM_TYPES, k=1, weights=[t.weight for t in ITEM_TYPES])[0]
+    return Item(name=pick.name, item_type=pick.item_type, value=pick.value)

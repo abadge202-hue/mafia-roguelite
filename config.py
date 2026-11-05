@@ -28,12 +28,13 @@ class ItemType(NamedTuple):
     name: str
     item_type: str
     value: int
+    weight: int
 
 
 ITEM_TYPES = [
-    ItemType(name="Brass knuckles", item_type="weapon", value=3),
-    ItemType(name="an Overcoat", item_type="armor", value=2),
-    ItemType(name="Painkillers", item_type="potion", value=30),
+    ItemType(name="Brass knuckles", item_type="weapon", value=3, weight=10),
+    ItemType(name="an Overcoat", item_type="armor", value=2, weight=10),
+    ItemType(name="Painkillers", item_type="potion", value=30, weight=20),
 ]
 
 
