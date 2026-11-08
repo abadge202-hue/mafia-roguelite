@@ -28,12 +28,12 @@ class Character:
         gained_health = self.health - old_health
         return gained_health
 
-    def use_painkillers(self):
-        """Use one painkiller; return (status, health gained, item name or None)."""
+    def use_potion(self):
+        """Use one potion; return (status, health gained, item name or None)."""
         if self.health == self.max_health:
             return "full", 0, None
         for item in self.inventory:
-            if item.item_type == "potion" and item.name == "Painkillers":
+            if item.item_type == "potion":
                 gained_health = self.heal(item.value)
                 self.inventory.remove(item)
                 return "used", gained_health, item.name

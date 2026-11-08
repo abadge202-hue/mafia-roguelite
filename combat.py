@@ -33,7 +33,7 @@ def fight(hero: Character, enemy: Character) -> bool:
 
         action = input(
             f"{hero.name} {hero.health}/{hero.max_health} | {enemy.name} {enemy.health} "
-            "Choose an action: (1) Attack (2) Defend (3) Painkillers: "
+            "Choose an action: (1) Attack (2) Defend (3) Patch up: "
         )
         if action == "1":
             damage, blocked, crit = hero.attack(enemy)
@@ -49,7 +49,7 @@ def fight(hero: Character, enemy: Character) -> bool:
             if hero.health <= 0:
                 break
         elif action == "3":
-            status, gained, item_name = hero.use_painkillers()
+            status, gained, item_name = hero.use_potion()
             if status == "used":
                 print(
                     f"{hero.name} uses {item_name} and heals for {gained}. Current health: {hero.health}/{hero.max_health}"
@@ -60,7 +60,7 @@ def fight(hero: Character, enemy: Character) -> bool:
             elif status == "full":
                 print(f"{hero.name} is already at full health!")
             elif status == "none":
-                print(f"{hero.name} has no Painkillers to use!")
+                print(f"{hero.name} has no meds to use!")
         else:
             print("Invalid choice. Please choose again.")
     return hero.health > 0
