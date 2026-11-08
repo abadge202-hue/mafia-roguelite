@@ -33,7 +33,7 @@ Done: crit settings and wind-up flag, telegraphed enemy crits.
 - `enemy_turn` returns whether a wind-up started instead of printing it
 - Item names: drop the article from "an Overcoat" so messages read naturally
 - Status strings in `use_potion` ("used", "full", "none") become an Enum
-
+- `sim_fight` in `sim.py` copies `fight`'s logic for now. Switch it to `Game.take_action` once the Game class exists, so the sim always uses the real rules.
 ## Tests
 - Floor scaling test checks every enemy type, not one random pick
 - `save_run` test using pytest's `tmp_path`, so tests never write to the real `runs.db`
