@@ -32,9 +32,10 @@ class ItemType(NamedTuple):
 
 
 ITEM_TYPES = [
-    ItemType(name="Brass knuckles", item_type="weapon", value=3, weight=10),
-    ItemType(name="an Overcoat", item_type="armor", value=2, weight=10),
-    ItemType(name="Painkillers", item_type="potion", value=30, weight=20),
+    ItemType(name="Brass knuckles", item_type="weapon", value=3, weight=5),
+    ItemType(name="an Overcoat", item_type="armor", value=2, weight=5),
+    ItemType(name="Painkillers", item_type="potion", value=30, weight=10),
+    ItemType(name="Whiskey", item_type="potion", value=15, weight=20),
 ]
 
 
