@@ -57,10 +57,10 @@ def test_damage_floor_is_one():
 
 def test_enemy_floor_scaling():
     enemy = random_enemy(3)
-    for name, health, damage in ENEMY_TYPES:
-        if name == enemy.name:
-            base_health = health
-            base_damage = damage
+    for enemy_type in ENEMY_TYPES:
+        if enemy_type.name == enemy.name:
+            base_health = enemy_type.health
+            base_damage = enemy_type.damage
     assert enemy.health == round(base_health * (1 + 2 * FLOOR_SCALING))
     assert enemy.damage == round(base_damage * (1 + 2 * FLOOR_SCALING))
 

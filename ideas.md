@@ -65,3 +65,4 @@ Play the game in a browser with Flask, reusing the existing game logic. Same rep
 - Menu best run
 - Add Bosses Defeated in stats
 - Weighted items
+- Weight enemy encounters

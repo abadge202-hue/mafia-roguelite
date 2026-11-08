@@ -10,12 +10,13 @@ class EnemyType(NamedTuple):
     name: str
     health: int
     damage: int
+    weight: int = 1
 
 
 ENEMY_TYPES = [
-    EnemyType(name="Associate", health=20, damage=2),
-    EnemyType(name="Soldier", health=25, damage=3),
-    EnemyType(name="Enforcer", health=35, damage=5),
+    EnemyType(name="Associate", health=20, damage=2, weight=10),
+    EnemyType(name="Soldier", health=25, damage=3, weight=8),
+    EnemyType(name="Enforcer", health=35, damage=5, weight=4),
 ]
 BOSS_TYPES = [
     EnemyType(name="Capo", health=45, damage=6),

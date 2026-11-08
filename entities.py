@@ -70,14 +70,14 @@ class Character:
 
 def create_boss(floor_number):
     """Return a specific boss for the given floor"""
-    name, health, damage = BOSS_TYPES[floor_number - 1]
-    return Character(name, health, damage)
+    boss_type = BOSS_TYPES[floor_number - 1]
+    return Character(boss_type.name, boss_type.health, boss_type.damage)
 
 
 def random_enemy(floor_number):
     """Return a random enemy with stats scaled up for the given floor"""
-    name, health, damage = random.choice(ENEMY_TYPES)
+    pick = random.choices(ENEMY_TYPES, k=1, weights=[t.weight for t in ENEMY_TYPES])[0]
     floor_multiplier = 1 + (floor_number - 1) * FLOOR_SCALING
-    health = round(health * floor_multiplier)
-    damage = round(damage * floor_multiplier)
-    return Character(name, health, damage)
+    health = round(pick.health * floor_multiplier)
+    damage = round(pick.damage * floor_multiplier)
+    return Character(pick.name, health, damage)
