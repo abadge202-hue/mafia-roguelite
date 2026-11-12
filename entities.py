@@ -30,15 +30,23 @@ class Character:
         return gained_health
 
     def use_potion(self):
-        """Use one potion; return (status, health gained, item name or None)."""
+        """Use the smallest potion that covers missing health, or the largest if none does; return (status, health gained, item name or None)."""
         if self.health == self.max_health:
             return "full", 0, None
-        for item in self.inventory:
-            if item.item_type == ItemCategory.POTION:
-                gained_health = self.heal(item.value)
-                self.inventory.remove(item)
-                return "used", gained_health, item.name
-        return "none", 0, None
+        missing_health = self.max_health - self.health
+        potions = [
+            item for item in self.inventory if item.item_type == ItemCategory.POTION
+        ]
+        if not potions:
+            return "none", 0, None
+        big_enough = [item for item in potions if item.value >= missing_health]
+        if big_enough:
+            chosen = min(big_enough, key=lambda item: item.value)
+        else:
+            chosen = max(potions, key=lambda item: item.value)
+        gained_health = self.heal(chosen.value)
+        self.inventory.remove(chosen)
+        return "used", gained_health, chosen.name
 
     def pick_up(self, item):
         """Apply an item: weapons add damage, armor adds defense, potions go to the inventory"""
