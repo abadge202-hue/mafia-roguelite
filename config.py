@@ -25,18 +25,24 @@ BOSS_TYPES = [
 ]
 
 
+class ItemCategory(Enum):
+    WEAPON = "weapon"
+    ARMOR = "armor"
+    POTION = "potion"
+
+
 class ItemType(NamedTuple):
     name: str
-    item_type: str
+    item_type: ItemCategory
     value: int
     weight: int
 
 
 ITEM_TYPES = [
-    ItemType(name="Brass knuckles", item_type="weapon", value=3, weight=5),
-    ItemType(name="an Overcoat", item_type="armor", value=2, weight=5),
-    ItemType(name="Painkillers", item_type="potion", value=30, weight=10),
-    ItemType(name="Whiskey", item_type="potion", value=15, weight=20),
+    ItemType(name="Brass knuckles", item_type=ItemCategory.WEAPON, value=3, weight=5),
+    ItemType(name="an Overcoat", item_type=ItemCategory.ARMOR, value=2, weight=5),
+    ItemType(name="Painkillers", item_type=ItemCategory.POTION, value=30, weight=10),
+    ItemType(name="Whiskey", item_type=ItemCategory.POTION, value=15, weight=20),
 ]
 
 

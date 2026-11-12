@@ -7,6 +7,7 @@ from config import (
     DAMAGE_SPREAD,
     ENEMY_TYPES,
     FLOOR_SCALING,
+    ItemCategory,
 )
 
 
@@ -33,7 +34,7 @@ class Character:
         if self.health == self.max_health:
             return "full", 0, None
         for item in self.inventory:
-            if item.item_type == "potion":
+            if item.item_type == ItemCategory.POTION:
                 gained_health = self.heal(item.value)
                 self.inventory.remove(item)
                 return "used", gained_health, item.name
@@ -41,11 +42,11 @@ class Character:
 
     def pick_up(self, item):
         """Apply an item: weapons add damage, armor adds defense, potions go to the inventory"""
-        if item.item_type == "potion":
+        if item.item_type == ItemCategory.POTION:
             self.inventory.append(item)
-        elif item.item_type == "weapon":
+        elif item.item_type == ItemCategory.WEAPON:
             self.damage += item.value
-        elif item.item_type == "armor":
+        elif item.item_type == ItemCategory.ARMOR:
             self.defense += item.value
 
     def attack(self, target):
