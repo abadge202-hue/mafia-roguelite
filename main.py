@@ -9,6 +9,7 @@ from config import (
     HERO_NAME,
     NUM_FLOORS,
     REST_HEAL_FRACTION,
+    ItemCategory,
     RoomType,
 )
 from dungeon import BOSS_ROOMS, generate_floor
@@ -44,13 +45,13 @@ def play_run():
             elif room.room_type == RoomType.TREASURE:
                 item = random_item()
                 hero.pick_up(item)
-                if item.item_type == "potion":
+                if item.item_type == ItemCategory.POTION:
                     print(f"{hero.name} picked up {item.name}!")
-                elif item.item_type == "armor":
+                elif item.item_type == ItemCategory.ARMOR:
                     print(
                         f"{hero.name} picked up {item.name}! Defense increased by {item.value}."
                     )
-                elif item.item_type == "weapon":
+                elif item.item_type == ItemCategory.WEAPON:
                     print(
                         f"{hero.name} picked up {item.name}! Damage increased by {item.value}."
                     )

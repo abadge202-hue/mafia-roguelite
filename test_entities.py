@@ -1,6 +1,6 @@
 import random
 
-from config import BLOCK_FRACTION, ENEMY_TYPES, FLOOR_SCALING
+from config import BLOCK_FRACTION, ENEMY_TYPES, FLOOR_SCALING, ItemCategory
 from entities import Character, random_enemy
 from items import Item
 
@@ -8,7 +8,7 @@ from items import Item
 def test_painkillers_heal_to_full_counts_as_used():
     hero = Character("Test", 100, 10)
     hero.health = 80
-    hero.inventory.append(Item("Painkillers", "potion", 30))
+    hero.inventory.append(Item("Painkillers", ItemCategory.POTION, 30))
     status, gained, item_name = hero.use_potion()
     assert status == "used"
     assert hero.health == 100
@@ -19,7 +19,7 @@ def test_painkillers_heal_to_full_counts_as_used():
 
 def test_use_painkillers_at_full_health():
     hero = Character("Test", 100, 10)
-    painkiller = Item("Painkillers", "potion", 30)
+    painkiller = Item("Painkillers", ItemCategory.POTION, 30)
     hero.inventory.append(painkiller)
     status, gained, item_name = hero.use_potion()
     assert status == "full"
@@ -100,7 +100,7 @@ def test_attack_reports_not_blocked_normally():
 def test_use_potion_works_with_any_potion():
     hero = Character("Test", 100, 10)
     hero.health = 50
-    hero.inventory.append(Item("Whiskey", "potion", 15))
+    hero.inventory.append(Item("Whiskey", ItemCategory.POTION, 15))
     status, gained, item_name = hero.use_potion()
     assert status == "used"
     assert hero.health == 65
