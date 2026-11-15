@@ -1,4 +1,5 @@
 import random
+from operator import attrgetter
 
 from config import (
     BLOCK_FRACTION,
@@ -39,11 +40,12 @@ class Character:
         ]
         if not potions:
             return "none", 0, None
+        BY_VALUE = attrgetter("value")
         big_enough = [item for item in potions if item.value >= missing_health]
         if big_enough:
-            chosen = min(big_enough, key=lambda item: item.value)
+            chosen = min(big_enough, key=BY_VALUE)
         else:
-            chosen = max(potions, key=lambda item: item.value)
+            chosen = max(potions, key=BY_VALUE)
         gained_health = self.heal(chosen.value)
         self.inventory.remove(chosen)
         return "used", gained_health, chosen.name
