@@ -107,3 +107,41 @@ def test_use_potion_works_with_any_potion():
     assert gained == 15
     assert item_name == "Whiskey"
     assert hero.inventory == []
+
+
+def test_use_potion_chooses_smallest_sufficient():
+    hero = Character("Test", 100, 10)
+    hero.health = 90
+    hero.inventory.append(Item("Painkillers", ItemCategory.POTION, 30))
+    hero.inventory.append(Item("Whiskey", ItemCategory.POTION, 15))
+    status, gained, item_name = hero.use_potion()
+    assert status == "used"
+    assert hero.health == 100
+    assert gained == 10
+    assert item_name == "Whiskey"
+    assert hero.inventory == [Item("Painkillers", ItemCategory.POTION, 30)]
+
+
+def test_use_potion_picks_only_one_that_covers():
+    hero = Character("Test", 100, 10)
+    hero.health = 75
+    hero.inventory.append(Item("Whiskey", ItemCategory.POTION, 15))
+    hero.inventory.append(Item("Painkillers", ItemCategory.POTION, 30))
+    status, gained, item_name = hero.use_potion()
+    assert status == "used"
+    assert hero.health == 100
+    assert gained == 25
+    assert item_name == "Painkillers"
+    assert hero.inventory == [Item("Whiskey", ItemCategory.POTION, 15)]
+
+
+def test_use_potion_when_no_sufficient_potion():
+    hero = Character("Test", 100, 10)
+    hero.health = 25
+    hero.inventory.append(Item("Whiskey", ItemCategory.POTION, 15))
+    status, gained, item_name = hero.use_potion()
+    assert hero.health == 40
+    assert gained == 15
+    assert item_name == "Whiskey"
+    assert status == "used"
+    assert hero.inventory == []
