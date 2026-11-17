@@ -70,9 +70,9 @@ def run_encounter(hero: Character, enemy: Character) -> bool:
     """Announce the enemy, run the fight, and print who won; return True if the hero survived."""
     print(f"You encounter: {enemy.name}!")
     print(f"{enemy.name} has {enemy.health} health and {enemy.damage} damage.")
-    fight(hero, enemy)
-    if hero.health <= 0:
-        print(f"{hero.name} was defeated by {enemy.name}.")
-    else:
+    survived = fight(hero, enemy)
+    if survived:
         print(f"{hero.name} defeated {enemy.name}!")
-    return hero.health > 0
+    else:
+        print(f"{hero.name} was defeated by {enemy.name}.")
+    return survived
