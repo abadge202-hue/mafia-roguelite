@@ -1,8 +1,27 @@
 import random
 
-from config import BLOCK_FRACTION, ENEMY_TYPES, FLOOR_SCALING, ItemCategory
-from entities import Character, random_enemy
+import pytest
+
+from config import BLOCK_FRACTION, BOSS_TYPES, ENEMY_TYPES, FLOOR_SCALING, ItemCategory
+from entities import Character, create_boss, random_enemy
 from items import Item
+
+
+@pytest.mark.parametrize("floor_number", [0, -1, len(BOSS_TYPES) + 1])
+def test_create_boss_rejects_floors_outside_configured_range(floor_number):
+    with pytest.raises(ValueError, match=rf"1.*{len(BOSS_TYPES)}"):
+        create_boss(floor_number)
+
+
+@pytest.mark.parametrize("floor_number", range(1, len(BOSS_TYPES) + 1))
+def test_create_boss_preserves_configured_boss_stats(floor_number):
+    boss = create_boss(floor_number)
+    expected = BOSS_TYPES[floor_number - 1]
+    assert (boss.name, boss.health, boss.damage) == (
+        expected.name,
+        expected.health,
+        expected.damage,
+    )
 
 
 def test_painkillers_heal_to_full_counts_as_used():
