@@ -80,7 +80,9 @@ class Character:
 
 
 def create_boss(floor_number):
-    """Return a specific boss for the given floor"""
+    """Return the configured boss for a floor in the inclusive range 1..len(BOSS_TYPES)."""
+    if not 1 <= floor_number <= len(BOSS_TYPES):
+        raise ValueError(f"floor_number must be between 1 and {len(BOSS_TYPES)}")
     boss_type = BOSS_TYPES[floor_number - 1]
     return Character(boss_type.name, boss_type.health, boss_type.damage)
 
